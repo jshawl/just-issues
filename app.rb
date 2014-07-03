@@ -22,9 +22,13 @@ get '/' do
 end
 
 get '/issues' do
+
   url = 'https://api.github.com/issues?filter=created&access_token=' + session['access_token']
-  puts url
   @issues = JSON.parse(RestClient.get(url))
+
+  url = 'https://api.github.com/user/repos?sort=updated&access_token=' + session['access_token']
+  @repos = JSON.parse(RestClient.get(url))
+
   erb :issues
 end
 

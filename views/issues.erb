@@ -1,7 +1,29 @@
 <h1>Just Issues</h1>
+
+<span>Create new issue </span>
+<select class='js-redirect'>
+<% @repos.each do |r| %>
+  <option value="<%= r['full_name'] %>"><%= r["full_name"] %></option>
+<% end %>
+</select>
+
 <h2>Recent issues</h2>
 <% @issues.each do |i| %>
   <div>
-    <h3><a href='<%= i['html_url'] %>'><%= i['title']%></a></h3>
+    <h3>
+      <a href='<%= i['html_url'] %>'><%= i['title']%></a>
+      [
+        <a href='<%= i["user"]["html_url"] %>'><%= i["user"]["login"] %></a>/<a href='<%= i["repository"]["html_url"] %>'><%= i["repository"]["name"] %></a>
+      ]
+    </h3>
   </div>
 <% end %>
+<script>
+;(function(){
+  // do something;
+  document.querySelector('.js-redirect').addEventListener('change', function(){
+    var strUser = this.options[this.selectedIndex].value;
+    window.location = 'https://github.com/' + strUser + '/issues/new';
+  })
+})();
+</script>
