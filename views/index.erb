@@ -6,13 +6,13 @@
   </head>
   <body>
     <header>
-      <h1>Site Title</h1>
+      <h1>Just Issues</h1>
       <nav>
         <ul>
 	  <% if access_token != '' %>
 	    <li><a href='/logout'>Log Out <%= user_name %></a><img src='<%= avatar_url %>' alt='<%= user_name %>'></li>
 	  <% else %>
-	    <li><a href='https://github.com/login/oauth/authorize?redirect_uri=<%= url %>/callback&scope=gist&client_id=<%= client_id %>' class=''>Log in with GitHub</a></li>
+	    <li><a href='https://github.com/login/oauth/authorize?redirect_uri=<%= url %>/callback&scope=public_repo&client_id=<%= client_id %>' class=''>Log in with GitHub</a></li>
 	  <% end %>
 	</ul>
       </nav>

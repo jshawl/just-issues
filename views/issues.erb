@@ -1,0 +1,7 @@
+<h1>Just Issues</h1>
+<h2>Recent issues</h2>
+<% @issues.each do |i| %>
+  <div>
+    <h3><a href='<%= i['html_url'] %>'><%= i['title']%></a></h3>
+  </div>
+<% end %>

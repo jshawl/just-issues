@@ -11,9 +11,7 @@ CLIENT_SECRET = ENV['GH_BASIC_SECRET_ID']
 URL = ENV['GH_URL']
 
 get '/' do
-  unless  session['access_token'] != ''
-    session['access_token'] = ''
-  end
+  session['access_token'] ||= ''
   erb :index, :locals => { 
     :client_id => CLIENT_ID,
     :access_token => session['access_token'], 
@@ -23,11 +21,17 @@ get '/' do
   }
 end
 
+get '/issues' do
+  url = 'https://api.github.com/issues?filter=created&access_token=' + session['access_token']
+  puts url
+  @issues = JSON.parse(RestClient.get(url))
+  erb :issues
+end
+
 get '/logout' do
   session['access_token'] = ''
   redirect to('/')
 end
-
 
 get '/callback' do
   session_code = request.env['rack.request.query_hash']['code']
